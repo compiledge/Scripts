@@ -12,4 +12,7 @@ if [ -n "$note" ]; then
 	
 	# Include the current date on orgmode format
 	echo "  [$sdate]" >> ~/git/org/refile.org
+
+	# Breakline to separate headers
+	echo "" >> ~/git/org/refile.org
 fi
