@@ -72,6 +72,9 @@ do
 	zenity --info --title="Pomodoro" --text="Pomo: Cycle #${i} complete!\n ${tomato}" >> /dev/null
 	tomato+="🍅️"
 
+	# Stop music
+	cmus-remote -U
+
 	# Rest Cycle
 	echo -ne '|                      | [0%]\r'
 	sleep $r_secs
