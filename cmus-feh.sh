@@ -23,7 +23,7 @@ PFLIST=$( find "$PFOLDER" -type f )
 
 # Finding the cover file
 COVER=$( echo "$FLIST" | grep -i ".jpeg\|.png\|.jpg" )
-PCOVER=$( echo "$PFLIST" | grep -i ".jpeg\|.png\|.jpg" )
+PCOVER=$( echo "$PFLIST" | grep -i ".jpeg\|.png\|.jpg" | grep -v "Scan")
 
 if [[ -n $COVER ]] || [[ -n $PCOVER ]] ; then
 
@@ -31,7 +31,7 @@ if [[ -n $COVER ]] || [[ -n $PCOVER ]] ; then
 	ART=$( echo "$FLIST" | grep -i "cover.jpg\|cover.png\|front.jpg\|front.png\
 		\|folder.jpg\|folder.png" | head -n1 )
 
-	PART=$( echo "$PFLIST" | grep -i "cover.jpg\|cover.png\|front.jpg\|front.png\
+	PART=$( echo "$PFLIST" | grep -v "Scan" | grep -i "cover.jpg\|cover.png\|front.jpg\|front.png\
 		\|folder.jpg\|folder.png" | head -n1 )
 
 	if [[ -z "$ART" ]]; then
@@ -39,7 +39,7 @@ if [[ -n $COVER ]] || [[ -n $PCOVER ]] ; then
 	fi
 
 	if [[ -z "$PART" ]]; then
-		PART=$( echo "$PFLIST" | grep -i ".png\|.jpg\|.jpeg" | head -n1 )
+		PART=$( echo "$PFLIST" | grep -v "Scan" | grep -i ".png\|.jpg\|.jpeg" | head -n1 )
 	fi
 
 	# Finding and killing the feh process
