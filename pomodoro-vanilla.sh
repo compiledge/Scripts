@@ -7,21 +7,49 @@ red="\033[0;31m"
 green="\033[0;32m"
 nc="\033[0;m"
 
-w_minutes=25;
-r_minutes=5;
-cycles=4;
+# Default pomodoro variables
+w_minutes=25
+r_minutes=5
+cycles=4
+pause_music=false
+back_music=false
 
-if [ $# -eq 0 ]
-then
-	echo "Default mode!"
-	echo "To change default mode try:"
-	echo "./pom [minutes to work] [minutes to rest] [max cycles]"
-	echo "./pom 25 5 4"
-else
-	w_minutes=$1
-	r_minutes=$2
-	cycles=$3
-fi
+# Getting arguments with getopt
+while getopts "w:r:c:pbh" opt; do
+	case $opt in
+		w) w_minutes="$OPTARG"
+			;;
+		r) r_minutes="$OPTARG"
+			;;
+		c) cycles="$OPTARG"
+			;;
+		p) pause_music=true
+			;;
+		b) back_music=true
+			;;
+		h) echo -e "Usage: ./pomodoro_vanilla.sh [opts]\n"
+			echo -e "Opts:"
+			echo -e "\t -w \t\t minutes to work"
+			echo -e "\t -r \t\t minutes to rest"
+			echo -e "\t -c \t\t max cycles"
+			echo -e "\t -p \t\t [cmus] stop music after work"
+			echo -e "\t -b \t\t [cmus] bring back music after rest"
+			echo -e "\nExample:"
+			echo -e "\t ./pomodoro_vanilla.sh -w 25 -r 5  -c 4 -p -b"
+			exit 1
+			;;
+
+		\?) echo "Invalid option -$OPTARG" >&2
+			exit 1
+			;;
+	esac
+
+	case $OPTARG in
+		-*) echo "Option $opt needs a valid argument"
+			exit 1
+			;;
+	esac
+done
 
 # Calc work timer
 w_secs=$(($w_minutes*60))
@@ -68,12 +96,16 @@ do
 	echo -ne '|======================| [100%]\r'
 	echo -ne "${red}"
 	echo -e '\n'
+
+	# Stop music on Cmus player
+	if [ "$pause_music" = true ] ; then
+		cmus-remote -u
+	fi
+
 	zenity --notification --text="Cycle #${i} complete!\n ${tomato}" >> /dev/null
 	zenity --info --title="Pomodoro" --text="Pomo: Cycle #${i} complete!\n ${tomato}" >> /dev/null
 	tomato+="🍅️"
 
-	# Stop music
-	cmus-remote -U
 
 	# Rest Cycle
 	echo -ne '|                      | [0%]\r'
@@ -101,6 +133,11 @@ do
 	echo -e "${nc}"
 	echo -e '\n'
 	zenity --notification --text="Pomo: Break complete!" >> /dev/null
+
+	# Return music on Cmus player
+	if [ "$back_music" = true ] ; then
+		cmus-remote -u
+	fi
 
 	# Final cycle?
 	if [ $i -lt $cycles ]
