@@ -51,14 +51,11 @@ if [[ -n $COVER ]] || [[ -n $PCOVER ]] ; then
 
 	killall -q feh
 
-	# '200x200' is the window size for the artwork. '+1160+546' is the offset.
-	# For example, if you want a 250 by 250 window on the bottom right hand corner of a 1920 by 1080 screen: "250x250+1670+830"
-	# setsid feh -g 200x200+1160+546 -x --zoom fill "$ART" &
-	# setsid feh -g 200x200+1160+546 -x --zoom fill "$PART" &
+	# Display the cover image
 	if [[ -n $ART ]]; then
-		setsid feh -g 200x200+1160+546 -x --zoom fill "$ART" &
+		setsid feh -x --zoom fill -. "$ART" &
 	elif [[ -n $PART ]]; then
-		setsid feh -g 200x200+1160+546 -x --zoom fill "$PART" &
+		setsid feh -x --zoom fill -. "$PART" &
 	fi 
 else
 	killall -q feh
