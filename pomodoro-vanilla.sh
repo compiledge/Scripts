@@ -96,7 +96,7 @@ do
 
 	# Stop music on Cmus player
 	if [ "$pause_music" = true ] ; then
-		cmus-remote -u
+		cmus-remote -U
 	fi
 
 	zenity --notification --text="Cycle #${i} complete!\n ${tomato}" >> /dev/null
