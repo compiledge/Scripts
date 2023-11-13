@@ -11,7 +11,7 @@ if [ -n "$note" ]; then
 	echo "$task" >> ~/git/org/refile.org
 	
 	# Include the current date on orgmode format
-	echo "  [$sdate]" >> ~/git/org/refile.org
+	# echo "  [$sdate]" >> ~/git/org/refile.org
 
 	# Breakline to separate headers
 	echo "" >> ~/git/org/refile.org
