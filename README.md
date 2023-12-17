@@ -5,7 +5,9 @@ a tile window manager, but some ones can be used in other ambiences (e.g. org-ca
 
 ## 🖥️ Description
 
-- **org-capture**: based on GTD method and orgmode, capture some idea
+### Org Mode
+
+**org-capture**: based on GTD method and orgmode, capture some idea
 to one refile file wherever in the system. It is better used with a rapid keybind;
 
 ![Org capture window](docs/org-capture.png)
