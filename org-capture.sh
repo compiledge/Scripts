@@ -39,13 +39,13 @@ done
 # Avoid empty insertions
 if [ -n "$note" ]; then
 	task="$nivel $todo $note"
-	echo "$task" >>~/org/refile.org
+	echo "$task" >>~/git/org/refile.org
 
 	# Include the current date on orgmode format
 	if [ "$tstamp" = true ]; then
-		echo "  [$sdate]" >>~/org/refile.org
+		echo "  [$sdate]" >>~/git/org/refile.org
 	fi
 
 	# Breakline to separate headers
-	echo "" >>~/org/refile.org
+	echo "" >>~/git/org/refile.org
 fi
